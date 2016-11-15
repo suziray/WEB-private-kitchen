@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Owner Page</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/start/jquery-ui.css"
+   type="text/css" rel="Stylesheet" /> 
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js"></script>
+   <style>
+    #qanda{display: none}
+   </style>
+    <script>
+       var token = localStorage.getItem('token');
+    
+    var thisuser = localStorage.getItem('user');
+        
+        function editspecial(){
+          if (thisuser!=="owner") {
+            alert("You are not the owner!");
+          }
+          else {
+            document.getElementById('editdaily').style.display='';
+          }
+        }
+        
+        function daily(){
+            if(document.getElementById("s1").checked){
+                localStorage.specialnum = "1";
+            }
+            else if(document.getElementById("s2").checked){
+                localStorage.specialnum = "2";
+            }
+            else if(document.getElementById("s3").checked){
+                localStorage.specialnum = "3";
+            }
+            else if(document.getElementById("s4").checked){
+                localStorage.specialnum = "4";
+            }
+            else if(document.getElementById("s5").checked){
+                localStorage.specialnum = "5";
+            }
+            document.getElementById('editdaily').style.display='none';
+            document.getElementById('notice').style.display='';
+        }
+        
+        function qalog(){
+          if (thisuser!=="owner") {
+            alert("You are not the owner!");
+          }
+          else {
+          loadQuestions();
+          $("#qanda").dialog();
+          }
+        }
+        function loadQuestions() {
+           var xmlHttp = new XMLHttpRequest(); // Initialize our XMLHttpRequest instance
+            xmlHttp.open("POST", "load_question.php", true); // Starting a POST request (NEVER send passwords as GET variables!!!)
+            xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xmlHttp.send(null);
+            xmlHttp.addEventListener("load", function(event){
+		var jsonData = JSON.parse(event.target.responseText); // parse the JSON into a JavaScript object
+                //alert(event.target.responseText);
+                //alert(jsonData.length);
+                document.getElementById("questionlist").innerHTML ="";
+		for (i=0;i<jsonData.length;i++) {
+                   document.getElementById("questionlist").innerHTML += "<option>" + jsonData[i].question + "</option>";
+                }
+            }, false);
+        }
+        
+        function postAns() {
+          var ans = document.getElementById("answer").value;
+          var que =document.getElementById("questionlist");
+        var queSelected = que.options[que.selectedIndex].value;
+        var dataString = "question=" + encodeURIComponent(queSelected) + "&answer=" + encodeURIComponent(ans);
+        //alert(dataString);
+        var xmlHttp = new XMLHttpRequest(); // Initialize our XMLHttpRequest instance
+            xmlHttp.open("POST", "post_answer.php", true); // Starting a POST request (NEVER send passwords as GET variables!!!)
+            xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xmlHttp.send(dataString);
+            xmlHttp.addEventListener("load", function(event){
+		var jsonData = JSON.parse(event.target.responseText); // parse the JSON into a JavaScript object
+                //alert(event.target.responseText);
+		if(jsonData.success){  // in PHP, this was the "success" key in the associative array; in JavaScript, it's the .success property of jsonData
+			alert("Answer posted");
+			$("#qanda").hide();
+		}else{
+			alert(jsonData.message);
+		}
+	}, false);
+        }
+        
+        function transmit3(){
+          if (thisuser!=="owner") {
+            alert("You are not the owner!");
+          }
+          else {
+          localStorage.setItem('token', token);
+      localStorage.setItem('user', thisuser);
+      window.location.href = "reservation.html";
+          }
+        }
+    </script>
+  </head>
+  <body>
+    <h1>Hello the Owner</h1>
+    
+    <div id="masterpage">
+    <button id="daily" onclick=editspecial() style="width: 150px; height: 60px; font-size:20px">Edit Daily Special</button> 
+    <button id="reservation" onclick=transmit3() style="width: 150px; height: 60px; font-size:20px">Check Reservations</button>
+    <button id="ques" onclick=qalog() style="width: 150px; height: 60px; font-size:20px">View General Questions</button>
+    </div>
+    <div id="qanda" title="Answering questions">
+      <select id="questionlist"></select>
+      <input type="text" id="answer" size="35">
+      <button onclick=postAns()>Post Answer</button>
+    </div>
+    <p id="editdaily" style="display:none">
+    <input type="radio" id="s1" name="edit"> Stewed Spareribs with Plum<br>
+    <input type="radio" id="s2" name="edit"> Private Beef Cubes<br>
+    <input type="radio" id="s3" name="edit"> Eggplant with Chilli and Potato<br>
+    <input type="radio" id="s4" name="edit"> Lobster with Ginger Sauce<br>
+    <input type="radio" id="s5" name="edit"> Crab with Ginger Sauce<br>
+    <button id="daily_btn" onclick='daily()'>Submit</button></p>
+    <p id="notice" style="display:none">Daily Special Successfully Changed</p>
+
+  </body>
+</html>

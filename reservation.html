@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Reservation</title>
+        <style type="text/css">
+        .reservation
+    {
+        display: table;
+    }
+    .row
+    {
+        display: table-row;
+    }
+    .cell
+    {
+	display: table-cell;
+        border: solid;
+	width: 270px;
+        height: 70px;
+        border-width: thin;
+        padding-left: 15px;
+        padding-right: 15px;
+	padding-bottom: 5px;
+    }
+    .day{
+        display: table-cell;
+        border: solid;
+	width: 270px;
+        height: 70px;
+        border-width: thin;
+        padding-left: 15px;
+        padding-right: 15px;
+	padding-bottom: 5px;
+    }
+    .meal{
+        display: table-cell;
+        border: solid;
+        width: 270px;
+        height: 70px;
+        border-width: thin;
+        padding-left: 15px;
+        padding-right: 15px;
+	padding-bottom: 15px;
+    }
+    
+    #placeorder{display: none}
+    #cancellog{display: none}
+    #owner {display: none}
+    </style>
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/start/jquery-ui.css"
+   type="text/css" rel="Stylesheet" /> 
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js"></script>
+</head>
+
+<body>
+    <h2 id=year_month></h2>
+    <button id="prev">Previous Month</button>
+    <button id="next">Next Month</button><br>
+    You can cancel your reservation here:
+    <button id="cancel" onclick=cancellog()>Cancel Reservation</button>
+    <div id="cancellog" title="Cancel Reservation">
+	Cancel reservation based on date:<br>
+	<select id="canceldate">
+	</select>
+	<button id="cancel_btn" onclick=cancelReserve()>Cancel</button>
+    </div>
+    <div id="owner" title="Turn a slot unavailable">
+	<button id="noon_btn" onclick=noonUn()>Busy for noon</button>
+	<button id="evening_btn" onclick=eveningUn()>Busy for evening</button>
+    </div>
+    <div id="placeorder" title="Placing a future reservation">
+	<select id="time">
+	    <option>11:00</option>
+	    <option>11:30</option>
+	    <option>12:00</option>
+	    <option>12:30</option>
+	    <option>13:00</option>
+	    <option>17:30</option>
+	    <option>18:00</option>
+	    <option>18:30</option>
+	    <option>19:00</option>
+	    <option>19:30</option>
+	</select>
+	<button id="order" onclick=addReserve()>Place Order</button>
+    </div>
+<div class="reservation">
+    <div class="row" id=0>
+        <div class="day">
+            Sunday
+        </div>
+        <div class="day">
+            Monday
+        </div>
+        <div class="day">
+            Tuesday
+        </div>
+        <div class="day">
+            Wednesday
+        </div>
+        <div class="day">
+            Thursday
+        </div>
+        <div class="day">
+            Friday
+        </div>
+        <div class="day">
+            Saturday
+        </div>
+    </div>
+    <div class="row" id=1>
+        <div class="cell">
+           <p class = "date"></p> 
+            <div class="meal"></div>
+            <div class="meal"></div>
+        </div>
+        <div class="cell">
+            <p class = "date"></p> 
+            <div class="meal"></div>
+            <div class="meal"></div>
+        </div>
+        <div class="cell">
+            <p class = "date"></p> 
+            <div class="meal"></div>
+            <div class="meal"></div>
+        </div>
+        <div class="cell">
+            <p class = "date"></p> 
+            <div class="meal"></div>
+            <div class="meal"></div>
+        </div>
+        <div class="cell">
+            <p class = "date"></p> 
+            <div class="meal"></div>
+            <div class="meal"></div>
+        </div>
+        <div class="cell">
+            <p class = "date"></p> 
+            <div class="meal"></div>
+            <div class="meal"></div>
+        </div>
+        <div class="cell">
+            <p class = "date"></p> 
+            <div class="meal"></div>
+            <div class="meal"></div>
+        </div>
+    </div>
+    <div class="row" id=2>
+        <div class="cell">
+           <p class = "date"></p> 
+            <div class="meal"></div>
+            <div class="meal"></div>
+        </div>
+        <div class="cell">
+            <p class = "date"></p> 
+            <div class="meal"></div>
+            <div class="meal"></div>
+        </div>
+        <div class="cell">
+            <p class = "date"></p> 
+            <div class="meal"></div>
+            <div class="meal"></div>
+        </div>
+        <div class="cell">
+            <p class = "date"></p> 
+            <div class="meal"></div>
+            <div class="meal"></div>
+        </div>
+        <div class="cell">
+            <p class = "date"></p> 
+            <div class="meal"></div>
+            <div class="meal"></div>
+        </div>
+        <div class="cell">
+            <p class = "date"></p> 
+            <div class="meal"></div>
+            <div class="meal"></div>
+        </div>
+        <div class="cell">
+            <p class = "date"></p> 
+            <div class="meal"></div>
+            <div class="meal"></div>
+        </div>
+    </div>
+    <div class="row" id=3>
+        <div class="cell">
+           <p class = "date"></p> 
+            <div class="meal"></div>
+            <div class="meal"></div>
+        </div>
+        <div class="cell">
+            <p class = "date"></p> 
+            <div class="meal"></div>
+            <div class="meal"></div>
+        </div>
+        <div class="cell">
+            <p class = "date"></p> 
+            <div class="meal"></div>
+            <div class="meal"></div>
+        </div>
+        <div class="cell">
+            <p class = "date"></p> 
+            <div class="meal"></div>
+            <div class="meal"></div>
+        </div>
+        <div class="cell">
+            <p class = "date"></p> 
+            <div class="meal"></div>
+            <div class="meal"></div>
+        </div>
+        <div class="cell">
+            <p class = "date"></p> 
+            <div class="meal"></div>
+            <div class="meal"></div>
+        </div>
+        <div class="cell">
+            <p class = "date"></p> 
+            <div class="meal"></div>
+            <div class="meal"></div>
+        </div>
+    </div>
+    <div class="row" id=4>
+        <div class="cell">
+           <p class = "date"></p> 
+            <div class="meal"></div>
+            <div class="meal"></div>
+        </div>
+        <div class="cell">
+            <p class = "date"></p> 
+            <div class="meal"></div>
+            <div class="meal"></div>
+        </div>
+        <div class="cell">
+            <p class = "date"></p> 
+            <div class="meal"></div>
+            <div class="meal"></div>
+        </div>
+        <div class="cell">
+            <p class = "date"></p> 
+            <div class="meal"></div>
+            <div class="meal"></div>
+        </div>
+        <div class="cell">
+            <p class = "date"></p> 
+            <div class="meal"></div>
+            <div class="meal"></div>
+        </div>
+        <div class="cell">
+            <p class = "date"></p> 
+            <div class="meal"></div>
+            <div class="meal"></div>
+        </div>
+        <div class="cell">
+            <p class = "date"></p> 
+            <div class="meal"></div>
+            <div class="meal"></div>
+        </div>
+    </div>
+    <div class="row" id=5>
+       <div class="cell">
+           <p class = "date"></p> 
+            <div class="meal"></div>
+            <div class="meal"></div>
+        </div>
+        <div class="cell">
+            <p class = "date"></p> 
+            <div class="meal"></div>
+            <div class="meal"></div>
+        </div>
+        <div class="cell">
+            <p class = "date"></p> 
+            <div class="meal"></div>
+            <div class="meal"></div>
+        </div>
+        <div class="cell">
+            <p class = "date"></p> 
+            <div class="meal"></div>
+            <div class="meal"></div>
+        </div>
+        <div class="cell">
+            <p class = "date"></p> 
+            <div class="meal"></div>
+            <div class="meal"></div>
+        </div>
+        <div class="cell">
+            <p class = "date"></p> 
+            <div class="meal"></div>
+            <div class="meal"></div>
+        </div>
+        <div class="cell">
+            <p class = "date"></p> 
+            <div class="meal"></div>
+            <div class="meal"></div>
+        </div>
+    </div>
+    <div class="row" id=6>
+        <div class="cell">
+           <p class = "date"></p> 
+            <div class="meal"></div>
+            <div class="meal"></div>
+        </div>
+        <div class="cell">
+            <p class = "date"></p> 
+            <div class="meal"></div>
+            <div class="meal"></div>
+        </div>
+        <div class="cell">
+            <p class = "date"></p> 
+            <div class="meal"></div>
+            <div class="meal"></div>
+        </div>
+        <div class="cell">
+            <p class = "date"></p> 
+            <div class="meal"></div>
+            <div class="meal"></div>
+        </div>
+        <div class="cell">
+            <p class = "date"></p> 
+            <div class="meal"></div>
+            <div class="meal"></div>
+        </div>
+        <div class="cell">
+            <p class = "date"></p> 
+            <div class="meal"></div>
+            <div class="meal"></div>
+        </div>
+        <div class="cell">
+            <p class = "date"></p> 
+            <div class="meal"></div>
+            <div class="meal"></div>
+        </div>
+    </div>
+</div>
+<script>
+    var token = localStorage.getItem('token');
+    
+    var thisuser = localStorage.getItem('user');
+    var dishes = JSON.parse(localStorage.dishes);;
+var days_in_month = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    var legend_month = ['January', 'February', 'March', 'April',
+                     'May', 'June', 'July', 'August', 'September',
+                     'October', 'November', 'December'];
+    var current = new Date();
+    var year = current.getFullYear();
+    var date = current.getDate();
+    var day = current.getDay();
+    var monthnum = current.getMonth();
+    
+    var month = legend_month[monthnum];
+    
+     document.getElementById("year_month").innerHTML = month + ", " + year;
+     
+     var datePointer;
+    $(document).click(function(event) {
+    var parent = event.target.parentNode;
+    if (typeof parent.firstChild.innerHTML ==="undefined") {
+    }
+    else {
+	datePointer = parent.firstChild.innerHTML;
+        alert("You picked " + datePointer);
+	if (thisuser==="owner") {
+	    $("#owner").dialog();
+	}
+	else {
+	$("#placeorder").dialog();
+	}
+	}
+});
+    
+    function cancellog(){
+	loadCancel();
+	$("#cancellog").dialog();
+    }
+     function clear_calendar(){
+        for (i=0; i<42; i++){
+            document.getElementsByClassName("cell")[i].innerHTML='<p class = "date"></p> <div class="meal"></div><div class="meal"></div>';
+            document.getElementsByClassName("cell")[i].style['border'] = "solid";
+            document.getElementsByClassName("cell")[i].style['border-width'] = "thin";
+        }
+     }
+     
+     function gen_date() {
+        // generate dates for the calendar of the month of interest.
+        clear_calendar();
+        //alert(dishes);
+        var first = new Date(year, monthnum, 1);
+        var first_day = first.getDay();
+        for (i=0; i< first_day ; i++){
+            document.getElementsByClassName("cell")[i].innerHTML = '<p class = "date"></p>';
+        }
+            // February only!
+        if (monthnum==1 && ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0)){ //compensate for leap year
+            for (i = 0; i < 29; i++) {
+            document.getElementsByClassName("date")[first_day+i].innerHTML = i+1;
+        }
+        for (i = first_day+29; i<42; i++){
+            document.getElementsByClassName("cell")[i].innerHTML = '<p class = "date"></p>';
+        }   
+          }
+        else {
+        for (i = 0; i < days_in_month[monthnum]; i++) {
+            document.getElementsByClassName("date")[first_day+i].innerHTML = i+1;
+        }
+        for (i = first_day+days_in_month[monthnum]; i<42; i++){
+            document.getElementsByClassName("cell")[i].innerHTML = '<p class = "date"></p>';
+            document.getElementsByClassName("cell")[i].style['border'] = "none";
+        }
+        }
+	loadReserve();
+     }
+      document.addEventListener("DOMContentLoaded", gen_date(), false);
+      
+      function incre_month() {
+        if (monthnum == 11) {
+            monthnum = 0;
+            incre_year();
+        }
+        else {
+            monthnum = monthnum +1;
+        }
+        month = legend_month[monthnum];
+        document.getElementById("year_month").innerHTML = month + ", " + year;
+        gen_date();
+    }
+    function incre_year() {
+        year = year+1;
+    }
+    
+    function decre_month(){
+        if (monthnum == 0) {
+            monthnum = 11;
+            decre_year();
+        }
+        else {
+            monthnum = monthnum -1;
+        }
+        month = legend_month[monthnum];
+        document.getElementById("year_month").innerHTML = month + ", " + year;
+        gen_date();
+    }
+    
+    function decre_year() {
+        year = year-1;
+    }
+    
+    document.getElementById("next").addEventListener("click", incre_month, false);
+    document.getElementById("prev").addEventListener("click", decre_month, false);
+    
+
+function loadReserve() {
+        var xmlHttp = new XMLHttpRequest(); // Initialize our XMLHttpRequest instance
+	xmlHttp.open("POST", "load_reserve.php", true); // Starting a POST request (NEVER send passwords as GET variables!!!)
+	xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xmlHttp.send(null);
+        xmlHttp.addEventListener("load", function(event){
+		var jsonData = JSON.parse(event.target.responseText); // parse the JSON into a JavaScript object
+		//alert(event.target.responseText);
+		for (i=0; i<jsonData.length; i++){
+                    var username = jsonData[i].username;
+                    var dish = jsonData[i].dish;
+                    var yearRe = parseInt(jsonData[i].year);
+		    var monthRe = parseInt(jsonData[i].month);
+		    var dateRe = parseInt(jsonData[i].date);
+		    var time = jsonData[i].time;
+		    var evening = jsonData[i].evening;
+		    var noon = jsonData[i].noon;
+		    //alert(dateRe);
+                    if (yearRe==year && monthRe==monthnum) {
+			//alert("in");
+                        var first = new Date(year, monthnum, 1);
+                        var first_day = first.getDay();
+			if (thisuser==="owner") {
+			    //alert("owner!");
+			    if (noon==="true") {
+			    //alert(document.getElementsByClassName("date")[first_day+dateRe-1].nextSibling.nextSibling);
+			    document.getElementsByClassName("date")[first_day+dateRe-1].nextSibling.nextSibling.style['background-color'] = "yellow";
+			    document.getElementsByClassName("date")[first_day+dateRe-1].nextSibling.nextSibling.innerHTML += '<li>' + username+ "\n"+ time +"\n"+ dish + '</li>';
+			}
+			if (evening==="true") {
+			    document.getElementsByClassName("date")[first_day+dateRe-1].nextSibling.nextSibling.nextSibling.style['background-color'] = "yellow";
+			    document.getElementsByClassName("date")[first_day+dateRe-1].nextSibling.nextSibling.nextSibling.innerHTML += '<li>' + username+ "\n" +time +"\n" + dish + '</li>';
+			}
+			}
+			else {
+			if (username==thisuser) {
+			    if (noon==="true") {
+			    //alert(document.getElementsByClassName("date")[first_day+dateRe-1].nextSibling.nextSibling);
+			    document.getElementsByClassName("date")[first_day+dateRe-1].nextSibling.nextSibling.style['background-color'] = "green";
+			    document.getElementsByClassName("date")[first_day+dateRe-1].nextSibling.nextSibling.innerHTML += '<li>' + time +"\n"+ dish + '</li>';
+			}
+			if (evening==="true") {
+			    document.getElementsByClassName("date")[first_day+dateRe-1].nextSibling.nextSibling.nextSibling.style['background-color'] = "green";
+			    document.getElementsByClassName("date")[first_day+dateRe-1].nextSibling.nextSibling.nextSibling.innerHTML += '<li>' + time +"\n" + dish + '</li>';
+			}
+			}
+			else {
+                        if (noon==="true") {
+			    //alert(document.getElementsByClassName("date")[first_day+dateRe-1].nextSibling.nextSibling);
+			    document.getElementsByClassName("date")[first_day+dateRe-1].nextSibling.nextSibling.style['background-color'] = "red";
+			    document.getElementsByClassName("date")[first_day+dateRe-1].nextSibling.nextSibling.innerHTML = "unavailable";
+			}
+			if (evening==="true") {
+			    document.getElementsByClassName("date")[first_day+dateRe-1].nextSibling.nextSibling.nextSibling.style['background-color'] = "red";
+			    document.getElementsByClassName("date")[first_day+dateRe-1].nextSibling.nextSibling.nextSibling.innerHTML = "unavailable";
+			}
+			}
+			}
+                       
+                    }
+                }
+	}, false);
+    }
+
+    function addReserve(){
+	var dishString="";
+	for (i=0; i<dishes.length-1; i++){
+	    //alert(dishes[i]);
+	    dishString +=dishes[i] + ",";
+	}
+	dishString += dishes[dishes.length-1];
+	var time =document.getElementById("time");
+        var timeSelected = time.options[time.selectedIndex].value;
+	var timenum = timeSelected.split(":")[0];
+	var noon;
+	var evening;
+	if (timenum<17) {
+	    noon = true;
+	    evening = false;
+	}
+	else {
+	    noon = false;
+	    evening = true;
+	}
+	var dataString = "dish=" + encodeURIComponent(dishString) + "&year=" + encodeURIComponent(year) + "&month=" + encodeURIComponent(monthnum) + "&date=" + encodeURIComponent(datePointer) + "&time=" + encodeURIComponent(timeSelected)
+	+ "&noon=" + encodeURIComponent(noon) + "&evening=" + encodeURIComponent(evening) + "&token=" + encodeURIComponent(token);
+	var xmlHttp = new XMLHttpRequest(); // Initialize our XMLHttpRequest instance
+	xmlHttp.open("POST", "add_reserve.php", true); // Starting a POST request (NEVER send passwords as GET variables!!!)
+	xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	xmlHttp.send(dataString);
+	xmlHttp.addEventListener("load", function(event){
+		var jsonData = JSON.parse(event.target.responseText); // parse the JSON into a JavaScript object
+		if(jsonData.success){  // in PHP, this was the "success" key in the associative array; in JavaScript, it's the .success property of jsonData
+			alert("Successfully reserved!");
+			gen_date();
+		}else{
+			alert("Reservation failure "+jsonData.message);
+		}
+	}, false);
+    }
+    
+    function noonUn() {
+	var dishString="I am busy that noon";
+	var timeNull="";
+	var noon=true;
+	var evening=false;
+	var dataString = "dish=" + encodeURIComponent(dishString) + "&year=" + encodeURIComponent(year) + "&month=" + encodeURIComponent(monthnum) + "&date=" + encodeURIComponent(datePointer) + "&time=" + encodeURIComponent(timeNull)
+	+ "&noon=" + encodeURIComponent(noon) + "&evening=" + encodeURIComponent(evening) + "&token=" + encodeURIComponent(token);
+	var xmlHttp = new XMLHttpRequest(); // Initialize our XMLHttpRequest instance
+	xmlHttp.open("POST", "add_reserve.php", true); // Starting a POST request (NEVER send passwords as GET variables!!!)
+	xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	xmlHttp.send(dataString);
+	xmlHttp.addEventListener("load", function(event){
+		var jsonData = JSON.parse(event.target.responseText); // parse the JSON into a JavaScript object
+		if(jsonData.success){  // in PHP, this was the "success" key in the associative array; in JavaScript, it's the .success property of jsonData
+			alert("Turned this slot unavailable");
+			gen_date();
+		}else{
+			alert("Failure "+jsonData.message);
+		}
+	}, false);
+    }
+    
+    function eveningUn() {
+	var dishString="I am busy that evening";
+	var timeNull="";
+	var noon=false;
+	var evening=true;
+	var dataString = "dish=" + encodeURIComponent(dishString) + "&year=" + encodeURIComponent(year) + "&month=" + encodeURIComponent(monthnum) + "&date=" + encodeURIComponent(datePointer) + "&time=" + encodeURIComponent(timeNull)
+	+ "&noon=" + encodeURIComponent(noon) + "&evening=" + encodeURIComponent(evening) + "&token=" + encodeURIComponent(token);
+	var xmlHttp = new XMLHttpRequest(); // Initialize our XMLHttpRequest instance
+	xmlHttp.open("POST", "add_reserve.php", true); // Starting a POST request (NEVER send passwords as GET variables!!!)
+	xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	xmlHttp.send(dataString);
+	xmlHttp.addEventListener("load", function(event){
+		var jsonData = JSON.parse(event.target.responseText); // parse the JSON into a JavaScript object
+		if(jsonData.success){  // in PHP, this was the "success" key in the associative array; in JavaScript, it's the .success property of jsonData
+			alert("Turned this slot unavailable");
+			gen_date();
+		}else{
+			alert("Reservation failure "+jsonData.message);
+		}
+	}, false);
+    }
+    function loadCancel (){
+	var dataString = "username=" + encodeURIComponent(thisuser) + "&token=" + encodeURIComponent(token);
+	var xmlHttp = new XMLHttpRequest(); // Initialize our XMLHttpRequest instance
+	xmlHttp.open("POST", "load_cancel.php", true); // Starting a POST request (NEVER send passwords as GET variables!!!)
+	xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	xmlHttp.send(dataString);
+	xmlHttp.addEventListener("load", function(event){
+		var jsonData = JSON.parse(event.target.responseText); // parse the JSON into a JavaScript object
+		document.getElementById("canceldate").innerHTML = "";
+		for (i=0; i<jsonData.length;i++) {
+		    var yearRe = jsonData[i].year;
+		    var monthRe = parseInt(jsonData[i].month)+1;
+		    var dateRe = jsonData[i].date;
+		    var time = jsonData[i].time;
+		    var timeString = yearRe + "/" + monthRe + "/" + dateRe + "/" + time;
+		    document.getElementById("canceldate").innerHTML += '<option>' + timeString + '</option>';
+		}
+		    
+	}, false);
+    }
+    
+    function cancelReserve() {
+	var time =document.getElementById("canceldate");
+        var dateSelected = time.options[time.selectedIndex].value;
+	var cancelYear = dateSelected.split("/")[0];
+	var cancelMonth = parseInt(dateSelected.split("/")[1])-1;
+	var cancelDate = dateSelected.split("/")[2];
+	var cancelTime = dateSelected.split("/")[3];
+	//alert(cancelYear);
+	//alert(cancelMonth);
+	//alert(cancelDate);
+	//alert(cancelTime);
+	var dataString = "token=" + encodeURIComponent(token) + "&year=" + encodeURIComponent(cancelYear)
+	 + "&month=" + encodeURIComponent(cancelMonth) + "&date=" + encodeURIComponent(cancelDate) + "&time=" + encodeURIComponent(cancelTime);
+	var xmlHttp = new XMLHttpRequest(); // Initialize our XMLHttpRequest instance
+	xmlHttp.open("POST", "cancel_reserve.php", true); // Starting a POST request (NEVER send passwords as GET variables!!!)
+	xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	xmlHttp.send(dataString);
+	xmlHttp.addEventListener("load", function(event){
+		var jsonData = JSON.parse(event.target.responseText); // parse the JSON into a JavaScript object
+		if(jsonData.success){  // in PHP, this was the "success" key in the associative array; in JavaScript, it's the .success property of jsonData
+			alert("Successfully cancelled the reservation");
+			$("#cancellog").hide();
+			gen_date();
+		}else{
+			alert("Cancellation failure "+jsonData.message);
+		}
+	}, false);
+    }
+</script>
+</body>
+</html>

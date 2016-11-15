@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Private Kitchen</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+        <meta name="description" content="Fullscreen Background Image Slideshow with CSS3 - A Css-only fullscreen background image slideshow" />
+        <meta name="keywords" content="css3, css-only, fullscreen, background, slideshow, images, content" />
+        <link rel="shortcut icon" href="../favicon.ico"> 
+        <link rel="stylesheet" type="text/css" href="css/slide.css" />
+        <link rel="stylesheet" type="text/css" href="css/style1.css" />
+		<script type="text/javascript" src="js/modernizr.custom.86080.js"></script>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/start/jquery-ui.css"
+   type="text/css" rel="Stylesheet" /> 
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js"></script>
+    <style>
+        #registerlog{display: none}
+        #owner{
+            position: absolute;
+            right: 0px;
+            bottom: 0px;
+        }
+        #dishimg{
+            position: absolute;
+            left: 165px;
+            top: 235px;
+            width: 640px;
+            height: 440px;
+            display: none
+        }
+        #comm{
+            position: absolute;
+            left: 810px;
+            top: 200px;
+        }
+        #comment{
+            position: absolute;
+            left: 810px;
+            top: 230px;
+            height:200px;
+            width:300px;
+            background: white;
+            border:3px solid #ccc;
+            font:16px/26px Georgia, Garamond, Serif;
+            overflow:auto;
+        }
+        #gen{
+            position: absolute;
+            left: 810px;
+            top: 445px;
+        }
+        #faq{
+            position: absolute;
+            left: 810px;
+            top: 485px;
+            height:200px;
+            width:300px;
+            background: white;
+            border:3px solid #ccc;
+            font:16px/26px Georgia, Garamond, Serif;
+            overflow:auto;
+        }
+        #addcomment{
+          display: none;
+          position: fixed;
+          bottom: 5%;
+          left: 1%;
+          
+          }
+        #addquestion{
+          display: none;
+          position: fixed;
+          bottom: 5%;
+          right: 1%;
+        }
+        #postlog{display: none}
+        #owner{display: none}
+        #welcome{
+            font-size: 400%;
+            color: white;
+        }
+    </style>
+    
+    
+    
+  </head>
+  <body id="page">
+    <ul class="cb-slideshow">
+            <li><span>Image 01</span></li>
+            <li><span>Image 02</span></li>
+            <li><span>Image 03</span></li>
+        </ul>
+    <h1 id="welcome">Welcome to Your Private Kitchen</h1>
+    <div id="prelog">
+    <input type="text" id="username" placeholder="Username">
+    <input type="password" id="password" placeholder="Password">
+    <button id="login_btn">Login</button>
+    <br> Do you know that now you can register now online? Create an account here!
+    <button id="register" onclick=registerlog()>Register</button>
+    </div>
+    <div id="registerlog" title="Register">
+        <input type="text" id="newusername" placeholder="Username">
+        <input type="password" id="newpassword" placeholder="Password">
+        <button id="register_btn">Register</button>
+    </div>
+    <div id="postlog">
+      You can reserve online now!
+      <button onclick=transmit1()>Reserve</button>
+    </div>
+    <p><button id="colddish" onclick='selectCat("colddish")' style="width: 150px; height: 60px; font-size:20px">Cold Dish</button>
+    <button id="vegetable" onclick='selectCat("vegetable")' style="width: 150px; height: 60px; font-size:20px">Vegetable</button>
+    <button id="meat" onclick='selectCat("meat")' style="width: 150px; height: 60px; font-size:20px">Meat</button>
+    <button id="seafood" onclick='selectCat("seafood")' style="width: 150px; height: 60px; font-size:20px">Seafood</button>
+    <button id="noodle" onclick='selectCat("noodle")' style="width: 180px; height: 60px; font-size:20px">Noodles & Rice</button>
+    <button id="soup" onclick='selectCat("soup")' style="width: 150px; height: 60px; font-size:20px">Soup</button>
+    <button id="daily" onclick='selectCat("daily")' style="width: 150px; height: 60px; font-size:20px">Daily Special</button></p>
+    <hr noshade size=3>
+    <p></p>
+    
+    <div id="cold" style="display:none">
+        <button id="Honey Baked Cake" class="dishbtn" onclick='selectDish("Honey Baked Cake")' style="width: 150px; height: 60px">Honey Baked Cake</button><br><br>
+        <button id="Yellow Croaker" class="dishbtn" onclick='selectDish("Yellow Croaker")' style="width: 150px; height: 60px">Yellow Croaker</button><br><br>
+        <button id="Melaleuca Ear" class="dishbtn" onclick='selectDish("Melaleuca Ear")' style="width: 150px; height: 60px">Melaleuca Ear</button>
+    </div>
+    
+    <div id="vege" style="display:none">
+        <button id="Spicy Bean Curd" class="dishbtn" onclick='selectDish("Spicy Bean Curd")' style="width: 150px; height: 60px">Spicy Bean Curd</button><br><br>
+        <button id="Asparagus in Chicken Broth" class="dishbtn" onclick='selectDish("Asparagus in Chicken Broth")' style="width: 150px; height: 60px">Asparagus in Chicken Broth</button><br><br>
+        <button id="Stir Fried Chinese Broccoli" class="dishbtn" onclick='selectDish("Stir Fried Chinese Broccoli")' style="width: 150px; height: 60px">Stir Fried Chinese Broccoli</button>
+    </div>
+
+    <div id="mea" style="display:none">
+        <button id="Braised Pig Feet" class="dishbtn" onclick='selectDish("Braised Pig Feet")' style="width: 150px; height: 60px">Braised Pig Feet</button><br><br>
+        <button id="Spicy Beef" class="dishbtn" onclick='selectDish("Spicy Beef")' style="width: 150px; height: 60px">Spicy Beef</button><br><br>
+        <button id="Red Wine Braised Lamb" class="dishbtn" onclick='selectDish("Red Wine Braised Lamb")' style="width: 150px; height: 60px">Red Wine Braised Lamb</button>
+    </div>
+    
+    <div id="sea" style="display:none">
+        <button id="Steamed Whole Fish" class="dishbtn" onclick='selectDish("Steamed Whole Fish")' style="width: 150px; height: 60px">Steamed Whole Fish</button><br><br>
+        <button id="Asparagus Shrimp" class="dishbtn" onclick='selectDish("Asparagus Shrimp")' style="width: 150px; height: 60px">Asparagus Shrimp</button><br><br>
+        <button id="Fried Eel" class="dishbtn" onclick='selectDish("Fried Eel")' style="width: 150px; height: 60px">Fried Eel</button>
+    </div>
+    
+    <div id="noo" style="display:none">
+        <button id="Seafood Rice" class="dishbtn" onclick='selectDish("Seafood Rice")' style="width: 150px; height: 60px">Seafood Rice</button><br><br>
+        <button id="Fried Fish Soup Noodle" class="dishbtn" onclick='selectDish("Fried Fish Soup Noodle")' style="width: 150px; height: 60px">Fried Fish Soup Noodle</button><br><br>
+        <button id="Abalone Rice" class="dishbtn" onclick='selectDish("Abalone Rice")' style="width: 150px; height: 60px">Abalone Rice</button>
+    </div>
+    
+    <div id="sou" style="display:none">
+        <button id="Hen Broth with Yam" class="dishbtn" onclick='selectDish("Hen Broth with Yam")' style="width: 150px; height: 60px">Hen Broth with Yam</button><br><br>
+        <button id="Triple Mushroom" class="dishbtn" onclick='selectDish("Triple Mushroom")' style="width: 150px; height: 60px">Triple Mushroom</button><br><br>
+        <button id="Clam and Potato" class="dishbtn" onclick='selectDish("Clam and Potato")' style="width: 150px; height: 60px">Clam and Potato</button>
+    </div>
+    
+    <div id="spec" style="display:none">
+        <button id="Stewed Spareribs with Plum" class="dishbtn" onclick='selectDish("Stewed Spareribs with Plum")' style="width: 150px; height: 60px; display: none">Stewed Spareribs with Plum</button>
+        <button id="Private Beef Cubes" class="dishbtn" onclick='selectDish("Private Beef Cubes")' style="width: 150px; height: 60px; display: none">Private Beef Cubes</button>
+        <button id="Eggplant with Chilli and Potato" class="dishbtn" onclick='selectDish("Eggplant with Chilli and Potato")' style="width: 150px; height: 60px; display: none">Eggplant with Chilli and Potato</button>
+        <button id="Lobster with Ginger Sauce" class="dishbtn" onclick='selectDish("Lobster with Ginger Sauce")' style="width: 150px; height: 60px; display: none">Lobster with Ginger Sauce</button>
+        <button id="Crab with Ginger Sauce" class="dishbtn" onclick='selectDish("Crab with Ginger Sauce")' style="width: 150px; height: 60px; display: none">Crab with Ginger Sauce</button>
+    </div>
+    
+    <img alt="dish" id="dishimg">
+    
+    <p id="comm">Comments</p>
+    <div id="comment"></div>
+    
+    <p id="gen">FAQ</p>
+    <div id="faq"></div>
+    
+    <div id="addcomment">
+      <input type="text" placeholder="comment this dish!" id="dishcomment" size="40">
+      <button onclick=addComment()>Add Comment</button>
+    </div>
+    <div id="addquestion">
+      <input type="text" placeholder="submit a question here" id="question" size="40">
+      <button onclick=addQuestion()>Add Question</button>
+    </div>
+    <button id="owner" onclick=transmit2()>I'm the Owner</button>
+    <script>
+              var imglist = [];
+      imglist[0] = "http://mmbiz.qpic.cn/mmbiz/1C9Y2Yf6iaCPPgVOxBDTE8z0ibRszQXPWJ2fRmL9RMsEdMRlVK9Y87JOQH0AkxU2tibZoH9YhlyCQcyhLkFkKgUxA/0";
+      imglist[1] = "http://image.haochi123.com/S_Caipu/Pic/Pic22320.jpg";
+      imglist[2] = "http://pic9.nipic.com/20100820/4678381_091737062008_2.jpg";
+      imglist[3] = "http://orichinese.com/wp-content/uploads/2012/09/8-120914105I2445.jpg";
+      imglist[4] = "http://www.78fz.com/upload_image/Restaurant/78map_pic_20060103102844.jpg";
+      imglist[5] = "http://i7.meishichina.com/Eat/UploadFiles1017/200801/20080130101721288.jpg";
+      imglist[6] = "http://photo.hanyu.iciba.com/upload/encyclopedia_2/0f/91/bk_0f91931d692741a7273623e5e5bf0eea_XgoGlV.jpg";
+      imglist[7] = "http://food.ulifestyle.com.hk/imglib/image/articles_photo/9591056366020793859.jpg";
+      imglist[8] = "http://i3.meishichina.com/attachment/recipe/2014/12/23/p800_201412238d60fd78cfc3798d.jpg";
+      imglist[9] = "http://www.xinshishen.com/uploads/allimg/130324/246140.1.jpg";
+      imglist[10] = "http://www.njguohao.com/meiti/UploadFiles_2415/201403/2014032114145429.jpg";
+      imglist[11] = "http://www.962360.com/images/upload/Image/qingchaoshansi.jpg";
+      imglist[12] = "http://img1.t0760.com/uploadfile/bm/b400422/p/12510018259.png";
+      imglist[13] = "http://cp1.douguo.net/upload/caiku/8/6/0/yuan_8602e97f53f7663849aa13808b418960.jpg";
+      imglist[14] = "http://img3.redocn.com/20130828/Redocn_2013082605391863.jpg";
+      imglist[15] = "http://i3.meishichina.com/attachment/r/2012/04/11/p800_20120411103826982502028.jpg";
+      imglist[16] = "http://z.abang.com/f/mincai/1/3/n/0/-/-/huanghuacait.jpg";
+      imglist[17] = "http://i3.meishichina.com/attachment/201207/18/183825_1342579629tkOu.jpg";
+      imglist[18] = "http://images2.4hw.com.cn/20141217/3071699ea511943ecb8185c629055119.jpg";
+      imglist[19] = "http://i2.s1.dpfile.com/pc/71562e85fffc212453b1880b6051e966(700x700)/thumb.jpg";
+      imglist[20] = "http://img3.douban.com/lpic/s9100311.jpg";
+      imglist[21] = "http://imgs.douguo.com/upload/caiku/c/e/b/ce9587efda8700e1955b425e8bdf3fcb.jpg";
+      imglist[22] = "http://www.foodstar.com.cn/sites/default/files/imagecache/3_2/images/recipe/neo_img_jiang_cong_chao_hua_xie_.jpg";
+      
+      
+    $(document).ready(function(){
+        $(".dishbtn").hover(function(){
+          var dishId = this.id;
+          if (dishId=="Honey Baked Cake"){
+            //alert("in");
+            //alert(imglist[9]);
+            document.getElementById('dishimg').src = imglist[0];
+          }
+          else if (dishId=="Yellow Croaker"){
+            document.getElementById('dishimg').src = imglist[1];  
+          }
+          else if (dishId=="Melaleuca Ear") {
+            document.getElementById('dishimg').src = imglist[2]; 
+          }
+          else if (dishId=="Spicy Bean Curd") {
+            document.getElementById('dishimg').src = imglist[3]; 
+          }
+          
+          else if (dishId=="Asparagus in Chicken Broth") {
+            document.getElementById('dishimg').src = imglist[4]; 
+          }
+          else if (dishId=="Stir Fried Chinese Broccoli") {
+            document.getElementById('dishimg').src = imglist[5]; 
+          }
+          else if (dishId=="Braised Pig Feet") {
+            document.getElementById('dishimg').src = imglist[6]; 
+          }
+          else if (dishId=="Spicy Beef") {
+            document.getElementById('dishimg').src = imglist[7]; 
+          }
+          else if (dishId=="Red Wine Braised Lamb") {
+            document.getElementById('dishimg').src = imglist[8]; 
+          }
+          else if (dishId=="Steamed Whole Fish") {
+            document.getElementById('dishimg').src = imglist[9]; 
+          }
+          else if (dishId=="Asparagus Shrimp") {
+            document.getElementById('dishimg').src = imglist[10]; 
+          }
+          else if (dishId=="Fried Eel") {
+            document.getElementById('dishimg').src = imglist[11]; 
+          }
+          else if (dishId=="Seafood Rice") {
+            document.getElementById('dishimg').src = imglist[12]; 
+          }
+          else if (dishId=="Fried Fish Soup Noodle") {
+            document.getElementById('dishimg').src = imglist[13]; 
+          }
+          else if (dishId=="Abalone Rice") {
+            document.getElementById('dishimg').src = imglist[14]; 
+          }
+          else if (dishId=="Hen Broth with Yam") {
+            document.getElementById('dishimg').src = imglist[15]; 
+          }
+          else if (dishId=="Triple Mushroom") {
+            document.getElementById('dishimg').src = imglist[16]; 
+          }
+          else if (dishId=="Clam and Potato") {
+            document.getElementById('dishimg').src = imglist[17]; 
+          }
+          else if (dishId=="Stewed Spareribs with Plum") {
+            document.getElementById('dishimg').src = imglist[18]; 
+          }
+          else if (dishId=="Private Beef Cubes") {
+            document.getElementById('dishimg').src = imglist[19]; 
+          }
+          
+          else if (dishId=="Eggplant with Chilli and Potato") {
+            document.getElementById('dishimg').src = imglist[20]; 
+          }
+          else if (dishId=="Lobster with Ginger Sauce") {
+            document.getElementById('dishimg').src = imglist[21]; 
+          }
+          else if (dishId=="Crab with Ginger Sauce") {
+            document.getElementById('dishimg').src = imglist[22]; 
+          }
+          $("#dishimg").show();},
+          function(){
+          $("#dishimg").hide();});
+        
+    });
+    var token;
+    var thisuser;
+    var buttonClicked = null;
+    var catSelected = null;
+    var dish = [];
+    var SelectDishName;
+    
+    
+    function transmit1(){
+      localStorage.setItem('dishes', JSON.stringify(dish));
+      localStorage.setItem('token', token);
+      localStorage.setItem('user', thisuser);
+      window.location.href = "reservation.html";
+    }
+    
+    function transmit2(){
+      localStorage.setItem('token', token);
+      localStorage.setItem('user', thisuser);
+      window.location.href = "owner.html";
+    }
+    function registerlog(){
+      $("#registerlog").dialog();
+    }
+    function selectCat(id) {
+        if(buttonClicked != null){
+            buttonClicked.style.backgroundColor = '';
+        }
+        buttonClicked = document.getElementById(id);
+        buttonClicked.style.backgroundColor =  '#FAEBD7';
+        if(catSelected != null){
+            catSelected.style.display = 'none';
+        }
+        if(id=="colddish"){
+            catSelected = document.getElementById("cold");     
+        }
+        if(id=="vegetable"){
+            catSelected = document.getElementById("vege");     
+        }
+        if(id=="meat"){
+            catSelected = document.getElementById("mea");     
+        }
+        if(id=="seafood"){
+            catSelected = document.getElementById("sea");     
+        }
+        if(id=="noodle"){
+            catSelected = document.getElementById("noo");     
+        }
+        if(id=="soup"){
+            catSelected = document.getElementById("sou");     
+        }
+        if(id=="daily"){
+            catSelected = document.getElementById("spec");
+            var num = localStorage.getItem("specialnum");
+            if(num==1){
+              document.getElementById("Stewed Spareribs with Plum").style.display='';
+              document.getElementById("Private Beef Cubes").style.display='none';
+              document.getElementById("Eggplant with Chilli and Potato").style.display='none';
+              document.getElementById("Lobster with Ginger Sauce").style.display='none';
+              document.getElementById("Crab with Ginger Sauce").style.display='none';
+            }
+            if(num==2){
+              document.getElementById("Stewed Spareribs with Plum").style.display='none';
+              document.getElementById("Private Beef Cubes").style.display='';
+              document.getElementById("Eggplant with Chilli and Potato").style.display='none';
+              document.getElementById("Lobster with Ginger Sauce").style.display='none';
+              document.getElementById("Crab with Ginger Sauce").style.display='none';
+            }
+            if(num==3){
+              document.getElementById("Stewed Spareribs with Plum").style.display='none';
+              document.getElementById("Private Beef Cubes").style.display='none';
+              document.getElementById("Eggplant with Chilli and Potato").style.display='';
+              document.getElementById("Lobster with Ginger Sauce").style.display='none';
+              document.getElementById("Crab with Ginger Sauce").style.display='none';
+            }
+            if(num==4){
+              document.getElementById("Stewed Spareribs with Plum").style.display='none';
+              document.getElementById("Private Beef Cubes").style.display='none';
+              document.getElementById("Eggplant with Chilli and Potato").style.display='none';
+              document.getElementById("Lobster with Ginger Sauce").style.display='';
+              document.getElementById("Crab with Ginger Sauce").style.display='none';
+            }
+            if(num==5){
+              document.getElementById("Stewed Spareribs with Plum").style.display='none';
+              document.getElementById("Private Beef Cubes").style.display='none';
+              document.getElementById("Eggplant with Chilli and Potato").style.display='none';
+              document.getElementById("Lobster with Ginger Sauce").style.display='none';
+              document.getElementById("Crab with Ginger Sauce").style.display='';
+            }
+        }        
+        catSelected.style.display = '';
+    }
+    function selectDish(id) {
+        var dishSelected = document.getElementById(id);
+        SelectDishName = dishSelected.id;
+        //alert(SelectDishName);
+        loadComment();
+        dishSelected.style.backgroundColor = '#CCFF99';
+        var index = dish.indexOf(id);
+        if(index == -1){
+            dish[dish.length] = id;
+            exp = document.getElementById("dishPics");
+            exp.style.display = '';
+        }
+        if(index > -1){
+            dish.splice(index, 1);
+            dishSelected.style.backgroundColor = '';
+        }
+    }
+
+        function registerAjax(event){
+	var username = document.getElementById("newusername").value; // Get the username from the form
+	var password = document.getElementById("newpassword").value; // Get the password from the form
+ 
+	// Make a URL-encoded string for passing POST data:
+	var dataString = "username=" + encodeURIComponent(username) + "&password=" + encodeURIComponent(password);
+	var xmlHttp = new XMLHttpRequest(); // Initialize our XMLHttpRequest instance
+	xmlHttp.open("POST", "register_process.php", true); // Starting a POST request (NEVER send passwords as GET variables!!!)
+	xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");// It's easy to forget this line for POST requests
+	xmlHttp.addEventListener("load", function(event){
+		var jsonData = JSON.parse(event.target.responseText); // parse the JSON into a JavaScript object
+		if(jsonData.success){  // in PHP, this was the "success" key in the associative array; in JavaScript, it's the .success property of jsonData
+			alert("You've successfully registered");
+                        token = jsonData.token;
+                        thisuser = jsonData.user;
+                        $("#addcomment").show();
+                        $("#addquestion").show();
+                        $("#prelog").hide();
+                        $("#postlog").show();
+		}else{
+			alert("Registration failure."+jsonData.message);
+		}
+	}, false); // Bind the callback to the load event
+	xmlHttp.send(dataString); // Send the data
+        }
+
+        document.getElementById("register_btn").addEventListener("click", registerAjax, false);
+
+        function loginAjax(event){
+            var username = document.getElementById("username").value; // Get the username from the form
+            var password = document.getElementById("password").value; // Get the password from the form
+ 
+            // Make a URL-encoded string for passing POST data:
+            var dataString = "username=" + encodeURIComponent(username) + "&password=" + encodeURIComponent(password);
+ 
+            var xmlHttp = new XMLHttpRequest(); // Initialize our XMLHttpRequest instance
+            xmlHttp.open("POST", "login_process.php", true); // Starting a POST request (NEVER send passwords as GET variables!!!)
+            xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); // It's easy to forget this line for POST requests
+            xmlHttp.addEventListener("load", function(event){
+		var jsonData = JSON.parse(event.target.responseText); // parse the JSON into a JavaScript object
+		if(jsonData.success){  // in PHP, this was the "success" key in the associative array; in JavaScript, it's the .success property of jsonData
+			alert("You've been Logged In!");
+                        token = jsonData.token;
+                        thisuser = jsonData.user;
+                        $("#addcomment").show();
+                        $("#addquestion").show();
+                        $("#prelog").hide();
+                        $("#postlog").show();
+                        if (thisuser=="owner") {
+                          $("#owner").show();
+                        }
+		}else{
+			alert("You were not logged in.  "+jsonData.message);
+		}
+            }, false); // Bind the callback to the load event
+            xmlHttp.send(dataString); // Send the data
+        }
+ 
+        document.getElementById("login_btn").addEventListener("click", loginAjax, false);
+        
+        function loadComment() {
+          var dataString = "dishname=" + encodeURIComponent(SelectDishName);
+          var xmlHttp = new XMLHttpRequest(); // Initialize our XMLHttpRequest instance
+            xmlHttp.open("POST", "load_comment.php", true); // Starting a POST request (NEVER send passwords as GET variables!!!)
+            xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xmlHttp.send(dataString);
+            xmlHttp.addEventListener("load", function(event){
+		var jsonData = JSON.parse(event.target.responseText); // parse the JSON into a JavaScript object
+                //alert(event.target.responseText);
+                //alert(jsonData.length);
+                document.getElementById("comment").innerHTML ="";
+		for (i=0;i<jsonData.length;i++) {
+                   document.getElementById("comment").innerHTML += "<li>" + jsonData[i].comment + "</li>";
+                }
+            }, false);
+        }
+        
+        function addComment() {
+          var comment = document.getElementById("dishcomment").value;
+          var dataString = "dishname=" + encodeURIComponent(SelectDishName) + "&comment=" + encodeURIComponent(comment) + "&token=" + encodeURIComponent(token);
+          var xmlHttp = new XMLHttpRequest(); // Initialize our XMLHttpRequest instance
+            xmlHttp.open("POST", "add_comment.php", true); // Starting a POST request (NEVER send passwords as GET variables!!!)
+            xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xmlHttp.send(dataString);
+            xmlHttp.addEventListener("load", function(event){
+                //alert(event.target.responseText);
+		var jsonData = JSON.parse(event.target.responseText); // parse the JSON into a JavaScript object
+		if(jsonData.success){  // in PHP, this was the "success" key in the associative array; in JavaScript, it's the .success property of jsonData
+			alert("comment added");
+                        document.getElementById("dishcomment").value="";
+                        loadComment();
+		}else{
+		      alert(jsonData.message);
+		}
+            }, false);
+        }
+        
+        function loadQuestion() {
+          var xmlHttp = new XMLHttpRequest(); // Initialize our XMLHttpRequest instance
+            xmlHttp.open("POST", "load_question.php", true); // Starting a POST request (NEVER send passwords as GET variables!!!)
+            xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xmlHttp.send(null);
+            xmlHttp.addEventListener("load", function(event){
+		var jsonData = JSON.parse(event.target.responseText); // parse the JSON into a JavaScript object
+                //alert(event.target.responseText);
+                //alert(jsonData.length);
+                document.getElementById("faq").innerHTML ="";
+		for (i=0;i<jsonData.length;i++) {
+                   document.getElementById("faq").innerHTML += "<li>" + "Q: " + jsonData[i].question + "<br>" + "A: " +jsonData[i].answer+ "</li>";
+                }
+            }, false);
+        }
+        document.addEventListener("DOMContentLoaded", loadQuestion(), false);
+        
+        function addQuestion() {
+          var question = document.getElementById("question").value;
+          var dataString = "question=" + encodeURIComponent(question) + "&token=" + encodeURIComponent(token);
+          var xmlHttp = new XMLHttpRequest(); // Initialize our XMLHttpRequest instance
+            xmlHttp.open("POST", "add_question.php", true); // Starting a POST request (NEVER send passwords as GET variables!!!)
+            xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xmlHttp.send(dataString);
+            xmlHttp.addEventListener("load", function(event){
+                //alert(event.target.responseText);
+		var jsonData = JSON.parse(event.target.responseText); // parse the JSON into a JavaScript object
+		if(jsonData.success){  // in PHP, this was the "success" key in the associative array; in JavaScript, it's the .success property of jsonData
+			alert("question added");
+                        document.getElementById("question").value="";
+                        loadQuestion();
+		}else{
+		      alert(jsonData.message);
+		}
+            }, false);
+        }
+    </script>
+  </body>
+</html>
